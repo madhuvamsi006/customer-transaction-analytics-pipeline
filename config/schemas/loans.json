@@ -1,0 +1,16 @@
+{
+  "entity": "Loans",
+  "fields": [
+    {"name": "LoanID", "type": "STRING", "nullable": false},
+    {"name": "CustomerID", "type": "INTEGER", "nullable": false},
+    {"name": "AccountID", "type": "INTEGER", "nullable": false},
+    {"name": "LoanType", "type": "STRING", "nullable": false},
+    {"name": "Principal", "type": "FLOAT", "nullable": false},
+    {"name": "InterestRate", "type": "FLOAT", "nullable": false},
+    {"name": "StartDate", "type": "DATE", "nullable": false},
+    {"name": "EndDate", "type": "DATE", "nullable": true},
+    {"name": "EMIAmount", "type": "FLOAT", "nullable": false},
+    {"name": "Currency", "type": "STRING", "nullable": true},
+    {"name": "Status", "type": "STRING", "nullable": true}
+  ]
+}

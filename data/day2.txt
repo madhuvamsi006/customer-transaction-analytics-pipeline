@@ -1,0 +1,12 @@
+[ENTITY:Customers]
+CustomerID,FirstName,LastName,Email,Phone,Address,City,State,Country,PostalCode,DateOfBirth,JoinDate,CustomerType,Status
+2,Bob,Smith-Jr,bob.smith@email.com,+1-555-0102,456 Oak Ave,Los Angeles,CA,USA,90001,1990-07-22,2019-06-15,Premium,Active
+10,Jack,Anderson,jack.a@email.com,+1-555-0110,999 New Ct,San Jose,CA,USA,95101,1987-06-11,2019-12-01,Business,Active
+371,ThirdDay,NewCust,thirdday371@email.com,+1-555-0371,371 Day St,Miami,FL,USA,33101,2001-03-10,2024-02-01,Retail,Active
+372,Fourth,NewDay2,fourth372@email.com,+1-555-0372,372 Day Ave,Denver,CO,USA,80201,1998-07-20,2024-02-01,Retail,Active
+[ENTITY:Accounts]
+AccountID,CustomerID,AccountTypeID,BranchID,SortCode,AccountNumber,OpenDate,CloseDate,Balance,Currency,Status
+102,2,AT002,BR002,002002,ACC002002,2019-06-20,,9200.00,INR,Active
+201,1,AT002,BR001,001001,ACC201001,2021-06-01,,14000.00,INR,Active
+483,371,AT001,BR003,003003,ACC483003,2024-02-03,,3000.00,INR,Active
+484,372,AT002,BR004,004004,ACC484004,2024-02-03,,1500.00,INR,Active

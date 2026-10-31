@@ -1,0 +1,59 @@
+entities:
+  Customers:
+    primary_key: CustomerID
+    required_fields: [CustomerID, FirstName, LastName, Email, Phone]
+    incremental_key: CustomerID
+    scd_type: 2
+    scd_track_columns: [CustomerType, Status, Address, City, State, Email, Phone]
+    target_table: customers
+
+  Accounts:
+    primary_key: AccountID
+    required_fields: [AccountID, CustomerID, AccountTypeID, BranchID, SortCode, AccountNumber, OpenDate, Balance, Currency]
+    incremental_key: AccountID
+    scd_type: 2
+    scd_track_columns: [Balance, Status, CloseDate]
+    target_table: accounts
+
+  Transactions:
+    primary_key: TransactionID
+    required_fields: [TransactionID, AccountID, TransactionTypeID, TransactionDate, Amount, Currency]
+    incremental_key: TransactionID
+    scd_type: 1
+    target_table: transactions
+
+  Branches:
+    primary_key: BranchID
+    required_fields: [BranchID, BranchName, SortCode]
+    scd_type: 1
+    target_table: branches
+
+  AccountTypes:
+    primary_key: AccountTypeID
+    required_fields: [AccountTypeID, AccountTypeName, OverdraftLimit]
+    scd_type: 1
+    target_table: account_types
+
+  TransactionTypes:
+    primary_key: TransactionTypeID
+    required_fields: [TransactionTypeID, TransactionTypeName, Direction]
+    scd_type: 1
+    target_table: transaction_types
+
+  Loans:
+    primary_key: LoanID
+    required_fields: [LoanID, CustomerID, AccountID, LoanType, Principal, InterestRate, StartDate, EMIAmount]
+    scd_type: 1
+    target_table: loans
+
+  LoanPayments:
+    primary_key: PaymentID
+    required_fields: [PaymentID, LoanID, PaymentDate, Amount, Status]
+    scd_type: 1
+    target_table: loan_payments
+
+  Cards:
+    primary_key: CardID
+    required_fields: [CardID, AccountID, CustomerID, CardType, CardNumber, ExpiryDate, Status]
+    scd_type: 1
+    target_table: cards

@@ -1,0 +1,13 @@
+{
+  "entity": "Branches",
+  "fields": [
+    {"name": "BranchID", "type": "STRING", "nullable": false},
+    {"name": "BranchName", "type": "STRING", "nullable": false},
+    {"name": "SortCode", "type": "STRING", "nullable": false},
+    {"name": "Address", "type": "STRING", "nullable": true},
+    {"name": "City", "type": "STRING", "nullable": true},
+    {"name": "State", "type": "STRING", "nullable": true},
+    {"name": "ManagerID", "type": "INTEGER", "nullable": true},
+    {"name": "Phone", "type": "STRING", "nullable": true}
+  ]
+}

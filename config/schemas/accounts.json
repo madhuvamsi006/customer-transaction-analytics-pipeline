@@ -1,0 +1,16 @@
+{
+  "entity": "Accounts",
+  "fields": [
+    {"name": "AccountID", "type": "INTEGER", "nullable": false},
+    {"name": "CustomerID", "type": "INTEGER", "nullable": false},
+    {"name": "AccountTypeID", "type": "STRING", "nullable": false},
+    {"name": "BranchID", "type": "STRING", "nullable": false},
+    {"name": "SortCode", "type": "STRING", "nullable": false},
+    {"name": "AccountNumber", "type": "STRING", "nullable": false},
+    {"name": "OpenDate", "type": "DATE", "nullable": false},
+    {"name": "CloseDate", "type": "DATE", "nullable": true},
+    {"name": "Balance", "type": "FLOAT", "nullable": false},
+    {"name": "Currency", "type": "STRING", "nullable": false},
+    {"name": "Status", "type": "STRING", "nullable": true}
+  ]
+}

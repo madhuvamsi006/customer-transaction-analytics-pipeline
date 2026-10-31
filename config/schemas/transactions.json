@@ -1,0 +1,15 @@
+{
+  "entity": "Transactions",
+  "fields": [
+    {"name": "TransactionID", "type": "STRING", "nullable": false},
+    {"name": "AccountID", "type": "INTEGER", "nullable": false},
+    {"name": "TransactionTypeID", "type": "STRING", "nullable": false},
+    {"name": "TransactionDate", "type": "DATE", "nullable": false},
+    {"name": "Amount", "type": "FLOAT", "nullable": false},
+    {"name": "Currency", "type": "STRING", "nullable": false},
+    {"name": "Description", "type": "STRING", "nullable": true},
+    {"name": "Channel", "type": "STRING", "nullable": true},
+    {"name": "ReferenceNo", "type": "STRING", "nullable": true},
+    {"name": "Status", "type": "STRING", "nullable": true}
+  ]
+}

@@ -1,0 +1,96 @@
+[ENTITY:Customers]
+CustomerID,FirstName,LastName,Email,Phone,Address,City,State,Country,PostalCode,DateOfBirth,JoinDate,CustomerType,Status
+1,Alice,Johnson,alice.johnson@email.com,+1-555-0101,123 Main St,New York,NY,USA,10001,1985-03-15,2020-01-10,Retail,Active
+2,Bob,Smith,bob.smith@email.com,+1-555-0102,456 Oak Ave,Los Angeles,CA,USA,90001,1990-07-22,2019-06-15,Retail,Active
+3,Carol,Williams,,+1-555-0103,789 Pine Rd,Chicago,IL,USA,60601,1978-11-30,2021-03-20,Premium,Active
+4,David,Brown,david.b@email.com,+1-555-0104,321 Elm St,Houston,TX,USA,77001,1982-05-14,2018-09-05,Retail,Inactive
+5,Eva,Davis,eva.davis@email.com,+1-555-0105,654 Maple Dr,Phoenix,AZ,USA,85001,1995-12-01,2022-04-18,Premium,Active
+6,Frank,Miller,frank.m@email.com,+1-555-0106,987 Cedar Ln,Philadelphia,PA,USA,19101,1975-08-25,2017-11-30,Business,Active
+7,Grace,Wilson,grace.w@email.com,+1-555-0107,147 Birch Blvd,San Antonio,TX,USA,78201,1988-02-14,2020-07-22,Retail,Active
+8,Henry,Moore,henry.moore@email.com,+1-555-0108,258 Walnut St,San Diego,CA,USA,92101,1972-09-18,2016-03-10,Business,Active
+9,Iris,Taylor,iris.t@email.com,+1-555-0109,369 Spruce Ave,Dallas,TX,USA,75201,1993-04-30,2021-08-15,Retail,Active
+10,Jack,Anderson,jack.a@email.com,+1-555-0110,741 Ash Ct,San Jose,CA,USA,95101,1987-06-11,2019-12-01,Premium,Active
+[ENTITY:AccountTypes]
+AccountTypeID,AccountTypeName,InterestRate,OverdraftLimit,MinBalance,Description
+AT001,Savings,3.5,0,500,Standard savings account
+AT002,Checking,0.5,1000,0,Standard checking account
+AT003,Premium Savings,4.5,0,5000,High-yield savings account
+AT004,Business Checking,1.0,5000,0,Business checking account
+AT005,Fixed Deposit,6.0,0,10000,Fixed term deposit account
+[ENTITY:Branches]
+BranchID,BranchName,SortCode,Address,City,State,ManagerID,Phone
+BR001,Downtown Branch,001001,100 Wall Street,New York,NY,1,+1-212-555-0001
+BR002,West Side Branch,002002,200 Sunset Blvd,Los Angeles,CA,2,+1-310-555-0002
+BR003,Chicago Central,003003,300 Michigan Ave,Chicago,IL,3,+1-312-555-0003
+BR004,Houston Hub,004004,400 Main St,Houston,TX,4,+1-713-555-0004
+BR005,Phoenix Plaza,005005,500 Camelback Rd,Phoenix,AZ,5,+1-602-555-0005
+[ENTITY:TransactionTypes]
+TransactionTypeID,TransactionTypeName,Description,Direction
+TT001,Deposit,Cash or check deposit,Credit
+TT002,Withdrawal,Cash withdrawal,Debit
+TT003,Transfer,Account-to-account transfer,Debit
+TT004,Payment,Bill or loan payment,Debit
+TT005,Refund,Merchant refund,Credit
+TT006,Interest,Interest credited,Credit
+TT007,Fee,Bank service fee,Debit
+[ENTITY:Accounts]
+AccountID,CustomerID,AccountTypeID,BranchID,SortCode,AccountNumber,OpenDate,CloseDate,Balance,Currency,Status
+101,1,AT001,BR001,001001,ACC001001,2020-01-15,,25000.00,INR,Active
+102,2,AT002,BR002,002002,ACC002002,2019-06-20,,8500.00,INR,Active
+103,3,AT003,BR001,001001,ACC003001,2021-03-25,,150000.00,INR,Active
+104,4,AT002,BR003,003003,ACC004003,2018-09-10,2023-01-01,-500.00,INR,Inactive
+105,5,AT003,BR004,004004,ACC005004,2022-04-20,,75000.00,INR,Active
+106,6,AT004,BR001,001001,ACC006001,2017-12-01,,500000.00,INR,Active
+107,7,AT001,BR002,002002,ACC007002,2020-08-01,,18000.00,INR,Active
+108,8,AT004,BR005,005005,ACC008005,2016-04-01,,1200000.00,INR,Active
+109,9,AT002,BR003,003003,ACC009003,2021-09-01,,3200.00,INR,Active
+110,10,AT005,BR004,004004,ACC010004,2020-01-01,2024-06-30,250000.00,INR,Active
+201,1,AT002,BR001,001001,ACC201001,2021-06-01,,12000.00,INR,Active
+202,2,AT003,BR002,002002,ACC202002,2020-03-15,,95000.00,USD,Active
+[ENTITY:Transactions]
+TransactionID,AccountID,TransactionTypeID,TransactionDate,Amount,Currency,Description,Channel,ReferenceNo,Status
+T001,101,TT001,2024-01-05,50000.00,INR,Salary credit,Branch,REF001,Completed
+T002,101,TT002,2024-01-10,5000.00,INR,ATM withdrawal,ATM,REF002,Completed
+T003,102,TT001,2024-01-08,15000.00,INR,Cash deposit,Branch,REF003,Completed
+T004,102,TT004,2024-01-12,3000.00,INR,Electricity bill,Online,REF004,Completed
+T005,103,TT001,2024-01-03,200000.00,INR,Business deposit,Branch,REF005,Completed
+T006,103,TT002,2024-01-15,50000.00,INR,Large withdrawal,Branch,REF006,Completed
+T007,105,TT001,2024-01-07,100000.00,INR,Investment credit,Online,REF007,Completed
+T008,105,TT003,2024-01-20,25000.00,INR,Transfer to savings,Online,REF008,Completed
+T009,106,TT001,2024-01-02,1000000.00,INR,Business revenue,Wire,REF009,Completed
+T010,106,TT004,2024-01-25,200000.00,INR,Vendor payment,Online,REF010,Completed
+T011,107,TT001,2024-01-06,30000.00,INR,Salary credit,Branch,REF011,Completed
+T012,107,TT007,2024-01-31,500.00,INR,Monthly fee,System,REF012,Completed
+T013,108,TT001,2024-01-01,2000000.00,INR,Corporate deposit,Wire,REF013,Completed
+T014,109,TT001,2024-01-04,8000.00,INR,Cash deposit,ATM,REF014,Completed
+T015,109,TT002,2024-01-18,2000.00,INR,Cash withdrawal,ATM,REF015,Completed
+T016,201,TT001,2024-01-09,40000.00,INR,Rental income,Online,REF016,Completed
+T017,202,TT001,2024-01-11,5000.00,USD,Foreign deposit,Wire,REF017,Completed
+T018,101,TT001,2024-01-12,99000.00,INR,Near-threshold deposit,Branch,REF018,Completed
+T019,101,TT001,2024-01-13,98500.00,INR,Near-threshold deposit,ATM,REF019,Completed
+T020,103,TT001,2024-01-14,150000.00,INR,Suspicious high value,Branch,REF020,Completed
+T021,101,TT001,2024-01-12,50000.00,INR,Salary credit,Branch,REF001,Completed
+T022,104,TT002,2024-01-05,1500.00,INR,Withdrawal on closed account,Branch,REF022,Completed
+T023,202,TT001,2024-01-16,80000.00,INR,Currency mismatch deposit,Branch,REF023,Completed
+[ENTITY:Loans]
+LoanID,CustomerID,AccountID,LoanType,Principal,InterestRate,StartDate,EndDate,EMIAmount,Currency,Status
+L001,6,106,Business,5000000.00,8.5,2020-01-01,2025-01-01,105000.00,INR,Active
+L002,8,108,Mortgage,10000000.00,7.5,2018-01-01,2033-01-01,95000.00,INR,Active
+L003,1,101,Personal,200000.00,12.0,2023-01-01,2026-01-01,7000.00,INR,Active
+L004,3,103,Business,1000000.00,9.0,2022-01-01,2027-01-01,20000.00,INR,Active
+[ENTITY:LoanPayments]
+PaymentID,LoanID,PaymentDate,Amount,Currency,Status,Remarks
+LP001,L001,2024-01-05,105000.00,INR,Completed,On time
+LP002,L002,2024-01-10,95000.00,INR,Completed,On time
+LP003,L003,2024-01-15,7000.00,INR,Completed,On time
+LP004,L004,2024-01-20,20000.00,INR,Failed,Insufficient funds
+LP005,L001,2024-02-05,105000.00,INR,Completed,On time
+LP006,L003,2024-02-15,7000.00,INR,Completed,On time
+[ENTITY:Cards]
+CardID,AccountID,CustomerID,CardType,CardNumber,ExpiryDate,Status,IssueDate,DailyLimit
+C001,101,1,Debit,****1234,2027-01-31,Active,2020-01-15,50000.00
+C002,102,2,Debit,****2345,2026-06-30,Active,2019-06-20,30000.00
+C003,103,3,Credit,****3456,2026-03-31,Active,2021-03-25,200000.00
+C004,105,5,Credit,****4567,2027-04-30,Active,2022-04-20,150000.00
+C005,106,6,Credit,****5678,2025-12-31,Active,2017-12-01,500000.00
+C006,108,8,Credit,****6789,2027-01-31,Blocked,2016-04-01,1000000.00

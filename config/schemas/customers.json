@@ -1,0 +1,19 @@
+{
+  "entity": "Customers",
+  "fields": [
+    {"name": "CustomerID", "type": "INTEGER", "nullable": false},
+    {"name": "FirstName", "type": "STRING", "nullable": false},
+    {"name": "LastName", "type": "STRING", "nullable": false},
+    {"name": "Email", "type": "STRING", "nullable": true},
+    {"name": "Phone", "type": "STRING", "nullable": true},
+    {"name": "Address", "type": "STRING", "nullable": true},
+    {"name": "City", "type": "STRING", "nullable": true},
+    {"name": "State", "type": "STRING", "nullable": true},
+    {"name": "Country", "type": "STRING", "nullable": true},
+    {"name": "PostalCode", "type": "STRING", "nullable": true},
+    {"name": "DateOfBirth", "type": "DATE", "nullable": true},
+    {"name": "JoinDate", "type": "DATE", "nullable": true},
+    {"name": "CustomerType", "type": "STRING", "nullable": true},
+    {"name": "Status", "type": "STRING", "nullable": true}
+  ]
+}

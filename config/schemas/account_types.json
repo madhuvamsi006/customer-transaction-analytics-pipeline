@@ -1,0 +1,11 @@
+{
+  "entity": "AccountTypes",
+  "fields": [
+    {"name": "AccountTypeID", "type": "STRING", "nullable": false},
+    {"name": "AccountTypeName", "type": "STRING", "nullable": false},
+    {"name": "InterestRate", "type": "FLOAT", "nullable": true},
+    {"name": "OverdraftLimit", "type": "FLOAT", "nullable": false},
+    {"name": "MinBalance", "type": "FLOAT", "nullable": true},
+    {"name": "Description", "type": "STRING", "nullable": true}
+  ]
+}

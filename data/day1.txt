@@ -1,0 +1,12 @@
+[ENTITY:Customers]
+CustomerID,FirstName,LastName,Email,Phone,Address,City,State,Country,PostalCode,DateOfBirth,JoinDate,CustomerType,Status
+1,Alice,Johnson-Smith,alice.johnson@email.com,+1-555-0101,123 Main St,New York,NY,USA,10001,1985-03-15,2020-01-10,Premium,Active
+3,Carol,Williams,carol.w@email.com,+1-555-0103,789 Pine Rd,Chicago,IL,USA,60601,1978-11-30,2021-03-20,Premium,Active
+369,NewCust,Day1,newcust369@email.com,+1-555-0369,369 New St,Boston,MA,USA,02101,2000-01-01,2024-01-01,Retail,Active
+370,Another,NewDay1,another370@email.com,+1-555-0370,370 New Ave,Seattle,WA,USA,98101,1999-05-15,2024-01-01,Retail,Active
+[ENTITY:Accounts]
+AccountID,CustomerID,AccountTypeID,BranchID,SortCode,AccountNumber,OpenDate,CloseDate,Balance,Currency,Status
+101,1,AT001,BR001,001001,ACC001001,2020-01-15,,27500.00,INR,Active
+105,5,AT003,BR004,004004,ACC005004,2022-04-20,,82000.00,INR,Active
+481,369,AT001,BR001,001001,ACC481001,2024-01-02,,5000.00,INR,Active
+482,370,AT002,BR002,002002,ACC482002,2024-01-02,,2000.00,INR,Active

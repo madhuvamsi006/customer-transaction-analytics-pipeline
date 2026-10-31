@@ -1,0 +1,14 @@
+{
+  "entity": "Cards",
+  "fields": [
+    {"name": "CardID", "type": "STRING", "nullable": false},
+    {"name": "AccountID", "type": "INTEGER", "nullable": false},
+    {"name": "CustomerID", "type": "INTEGER", "nullable": false},
+    {"name": "CardType", "type": "STRING", "nullable": false},
+    {"name": "CardNumber", "type": "STRING", "nullable": false},
+    {"name": "ExpiryDate", "type": "DATE", "nullable": true},
+    {"name": "Status", "type": "STRING", "nullable": false},
+    {"name": "IssueDate", "type": "DATE", "nullable": true},
+    {"name": "DailyLimit", "type": "FLOAT", "nullable": true}
+  ]
+}

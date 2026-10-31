@@ -1,0 +1,12 @@
+{
+  "entity": "LoanPayments",
+  "fields": [
+    {"name": "PaymentID", "type": "STRING", "nullable": false},
+    {"name": "LoanID", "type": "STRING", "nullable": false},
+    {"name": "PaymentDate", "type": "DATE", "nullable": false},
+    {"name": "Amount", "type": "FLOAT", "nullable": false},
+    {"name": "Currency", "type": "STRING", "nullable": true},
+    {"name": "Status", "type": "STRING", "nullable": false},
+    {"name": "Remarks", "type": "STRING", "nullable": true}
+  ]
+}

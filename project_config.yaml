@@ -1,0 +1,136 @@
+# =============================================================================
+# PROJECT CONFIGURATION — Customer Transaction Analytics Pipeline
+# =============================================================================
+# Fill in YOUR project details below.
+# This single file drives the entire pipeline — no code changes needed.
+# One copy per deployment; commit it per team/environment.
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# 1. GCP PROJECT
+# ---------------------------------------------------------------------------
+gcp:
+  project_id: "your-gcp-project-id"       # GCP project ID (e.g. my-bank-project-123)
+  region: "us-central1"                    # GCP region for Dataflow / Dataproc
+  zone: "us-central1-a"                    # GCP zone (used for Dataproc master/workers)
+  service_account: ""                      # Leave blank to use default compute SA
+                                           # Or set: pipeline-sa@<project>.iam.gserviceaccount.com
+
+# ---------------------------------------------------------------------------
+# 2. GOOGLE CLOUD STORAGE
+# ---------------------------------------------------------------------------
+gcs:
+  bucket: "your-gcs-bucket-name"          # GCS bucket (must already exist or will be created)
+  input_prefix: "input"                    # Folder under bucket where source files land
+  output_prefix: "output"                  # Folder for intermediate outputs
+  config_prefix: "config"                  # Folder where config YAMLs are uploaded
+  temp_prefix: "temp"                      # Temp folder for Dataflow staging
+  staging_prefix: "staging"               # Staging folder for Dataflow
+
+  # Source data files — relative paths inside input_prefix
+  source_files:
+    day0: "day0/day0.txt"                  # Full baseline load
+    day1: "day1/day1.txt"                  # Day 1 incremental delta
+    day2: "day2/day2.txt"                  # Day 2 incremental delta
+    # Add more days as needed:
+    # day3: "day3/day3.txt"
+
+# ---------------------------------------------------------------------------
+# 3. BIGQUERY
+# ---------------------------------------------------------------------------
+bigquery:
+  dataset: "bank_analytics"               # BQ dataset name (will be created if missing)
+  location: "US"                           # BQ dataset location (US, EU, asia-south1, etc.)
+
+  # Table name prefixes per layer (change if your org has naming standards)
+  table_prefixes:
+    bronze: "bronze_"
+    silver: "silver_"
+    gold: "gold_"
+    quarantine: "quarantine_"
+    metadata: "meta_"
+    kpi: "kpi_"
+
+  # Write disposition for each layer
+  write_mode:
+    bronze: "WRITE_APPEND"                 # Always append raw rows
+    silver: "WRITE_TRUNCATE"              # Rebuild silver on each run
+    gold: "WRITE_APPEND"                   # SCD2 appends new versions
+    kpi: "WRITE_TRUNCATE"                 # KPIs are fully refreshed
+
+# ---------------------------------------------------------------------------
+# 4. PROCESSING ENGINE
+# ---------------------------------------------------------------------------
+engine:
+  type: "dataproc"                         # Options: "dataproc" | "dataflow"
+
+  # --- Dataproc settings (used when type = dataproc) ---
+  dataproc:
+    cluster_name: "txn-pipeline-cluster"   # Cluster name (auto-created if missing)
+    master_machine_type: "n1-standard-4"
+    worker_machine_type: "n1-standard-4"
+    num_workers: 2
+    image_version: "2.1-debian11"
+    optional_components: ["JUPYTER"]
+    enable_component_gateway: true
+    auto_delete_cluster: true              # Delete cluster after job finishes (saves cost)
+    idle_delete_ttl: "3600s"              # Auto-delete idle cluster after 1 hour
+
+  # --- Dataflow settings (used when type = dataflow) ---
+  dataflow:
+    machine_type: "n1-standard-4"
+    max_workers: 5
+    disk_size_gb: 100
+    use_public_ips: false
+    enable_streaming_engine: false
+    subnetwork: ""                         # Leave blank for default; or set full subnetwork URI
+
+# ---------------------------------------------------------------------------
+# 5. PIPELINE BEHAVIOUR
+# ---------------------------------------------------------------------------
+pipeline:
+  # Batch metadata
+  batch_id_prefix: "BATCH"                # Batch IDs will be: BATCH_DAY0, BATCH_DAY1, etc.
+
+  # High-value transaction threshold for anomaly detection
+  high_value_threshold: 100000            # Flag transactions above this amount (in base currency)
+
+  # Structuring detection window
+  structuring:
+    near_threshold_pct: 0.05             # Flag if amount is within 5% of high_value_threshold
+    window_days: 3                        # Rolling window in days
+    min_occurrences: 2                    # Min number of near-threshold txns to flag
+    channels: ["Branch", "ATM"]          # Cash proxy channels
+
+  # Dormant account reactivation detection
+  dormant:
+    inactivity_days: 90                   # Days of inactivity that qualifies as dormant
+    burst_window_days: 7                  # Window to detect burst after reactivation
+    burst_min_transactions: 3             # Min transactions in burst window to flag
+
+  # SCD Type 2 settings
+  scd2:
+    effective_start_col: "eff_start_date"
+    effective_end_col: "eff_end_date"
+    is_current_col: "is_current"
+    surrogate_key_col: "sk_id"
+
+  # Replay safety — skip rows already loaded (by row hash)
+  replay_safe: true
+
+  # DQ quarantine — retain failed rows for audit
+  quarantine_enabled: true
+
+# ---------------------------------------------------------------------------
+# 6. NOTIFICATIONS (optional)
+# ---------------------------------------------------------------------------
+notifications:
+  enabled: false
+  email: ""                               # Alert email address
+  pubsub_topic: ""                        # GCP Pub/Sub topic for pipeline events (optional)
+
+# ---------------------------------------------------------------------------
+# 7. ENVIRONMENT TAG
+# ---------------------------------------------------------------------------
+environment: "dev"                        # dev | staging | prod
+                                          # Used as a label on GCP resources

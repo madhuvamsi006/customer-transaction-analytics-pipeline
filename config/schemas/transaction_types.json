@@ -1,0 +1,9 @@
+{
+  "entity": "TransactionTypes",
+  "fields": [
+    {"name": "TransactionTypeID", "type": "STRING", "nullable": false},
+    {"name": "TransactionTypeName", "type": "STRING", "nullable": false},
+    {"name": "Description", "type": "STRING", "nullable": true},
+    {"name": "Direction", "type": "STRING", "nullable": false}
+  ]
+}

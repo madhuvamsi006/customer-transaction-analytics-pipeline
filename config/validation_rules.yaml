@@ -1,0 +1,108 @@
+rules:
+  - rule_id: VR001
+    rule_name: duplicate_customer
+    entity: Customers
+    check_type: deduplication
+    columns: [CustomerID]
+    action: quarantine
+    description: Flag and quarantine exact duplicate CustomerID records
+
+  - rule_id: VR002
+    rule_name: missing_email
+    entity: Customers
+    check_type: not_null
+    columns: [Email]
+    action: flag
+    description: Flag customers with missing email address
+
+  - rule_id: VR003
+    rule_name: missing_phone
+    entity: Customers
+    check_type: not_null
+    columns: [Phone]
+    action: flag
+    description: Flag customers with missing phone number
+
+  - rule_id: VR004
+    rule_name: duplicate_transaction
+    entity: Transactions
+    check_type: deduplication
+    columns: [TransactionID, AccountID, Amount, TransactionDate, ReferenceNo]
+    action: suppress
+    description: Suppress exact duplicate transactions
+
+  - rule_id: VR005
+    rule_name: currency_mismatch
+    entity: Transactions
+    check_type: referential
+    ref_entity: Accounts
+    ref_column: Currency
+    join_column: AccountID
+    compare_column: Currency
+    action: flag
+    description: Flag transactions where currency differs from account currency
+
+  - rule_id: VR006
+    rule_name: invalid_transaction_date
+    entity: Transactions
+    check_type: date_range
+    date_column: TransactionDate
+    ref_entity: Accounts
+    ref_open_col: OpenDate
+    ref_close_col: CloseDate
+    action: flag
+    description: Flag transactions outside account open/close date range
+
+  - rule_id: VR007
+    rule_name: sortcode_integrity
+    entity: Accounts
+    check_type: prefix_match
+    column: SortCode
+    ref_entity: Branches
+    ref_column: SortCode
+    join_column: BranchID
+    action: flag
+    description: Validate account sort code matches branch sort code prefix
+
+  - rule_id: VR008
+    rule_name: negative_balance_overdraft
+    entity: Accounts
+    check_type: threshold
+    column: Balance
+    ref_entity: AccountTypes
+    ref_column: OverdraftLimit
+    join_column: AccountTypeID
+    action: flag
+    description: Flag accounts where negative balance exceeds overdraft limit
+
+  - rule_id: VR009
+    rule_name: high_value_transaction
+    entity: Transactions
+    check_type: threshold
+    column: Amount
+    threshold_value: 100000
+    action: flag
+    description: Flag transactions exceeding high-value threshold of 100000
+
+  - rule_id: VR010
+    rule_name: structuring_detection
+    entity: Transactions
+    check_type: structuring
+    column: Amount
+    near_threshold: 100000
+    tolerance: 0.05
+    window_days: 3
+    min_count: 2
+    channel_filter: [Branch, ATM]
+    action: flag
+    description: Flag repeated near-threshold deposits via Branch/ATM in short window
+
+  - rule_id: VR011
+    rule_name: dormant_reactivation
+    entity: Transactions
+    check_type: dormant_burst
+    inactivity_days: 90
+    burst_window_days: 7
+    burst_min_transactions: 3
+    action: flag
+    description: Flag accounts with long inactivity followed by clustered transactions
